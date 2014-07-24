@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<skipper version="3.0.0.1104" mvc="Symfony2" orm="Doctrine2">
+  <module name="AwardManagementBundle" import-format="Doctrine2Php" import-path="../Entity" uuid="f4bc4dff-7837-45e0-984a-55968b23f809">
+    <entity name="AwardLocalization" description="Holds award's localized values.&#10;&#10;Requires: MultiLanguageSupportBundle" uuid="0fd4b655-daa6-4c02-801a-19afbc0c36d0">
+      <field name="award" description="Localized award." type="integer" size="10" required="true" primary="true" uuid="8b80faa8-1643-4b0a-bc47-6cf8afe998ca"/>
+      <field name="language" description="Localization language." type="integer" size="5" required="true" primary="true" uuid="9b13933b-70de-418f-84e2-367013efda3b"/>
+      <field name="title" description="Localized title of award." type="string" size="155" required="true" uuid="61cc953f-b379-436b-803e-be16a483ac70"/>
+      <field name="url_key" description="Localized url key of award." type="string" size="255" required="true" uuid="69e89d25-2909-4ac5-8966-f0edb1c19907"/>
+      <field name="content" description="If exists, content of award." type="time" uuid="272124e7-2b80-4991-8f8d-f8de97eefad0"/>
+      <field name="summary" description="If exists award summary." type="string" size="255" uuid="18575a93-fded-40a5-b125-aa6be5940bdb"/>
+      <index name="idx_u_award_localization" unique="true">
+        <index-field name="award"/>
+        <index-field name="language"/>
+      </index>
+      <orm-attributes>
+        <attribute name="options">
+          <attribute name="charset">utf8</attribute>
+          <attribute name="collate">utf8_turkish_ci</attribute>
+          <attribute name="engine">innodb</attribute>
+        </attribute>
+        <attribute name="table">award_localization</attribute>
+        <attribute name="export-file-name">AwardLocalization.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="AwardLocalization" to="Award" caption="idx_f_award_localization_award" owner-alias="localizations" inverse-alias="award" uuid="3e8bd2ba-8e00-4045-855f-ea910afdee66">
+      <association-field from="award" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <association from="AwardLocalization" to="Language" caption="idx_f_award_localization_language" inverse-alias="language" uuid="0496fdd9-4a89-42b7-afbd-c3a0edbf4507">
+      <association-field from="language" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="FilesOfAward" description="Associates files with awards.&#10;&#10;Requires: FileManagementBundle, MultiLanguageSupportBundle" uuid="321c63c3-128c-484b-8e7f-026034d69263">
+      <field name="file" description="Associated file." type="integer" size="15" required="true" primary="true" uuid="225c2cf5-4462-4848-b468-e001fc8ca3a0"/>
+      <field name="award" description="Associated award" type="integer" size="10" required="true" primary="true" uuid="55432771-d1f8-48aa-b7b0-2b1838768943"/>
+      <field name="language" description="Language of associated file." type="integer" size="5" required="true" primary="true" uuid="ce65a5b2-05af-49ae-8c44-5b8be67e7583"/>
+      <field name="sort_order" description="Custom sort order." type="integer" size="10" default="1" required="true" uuid="8aa8b8f8-5d19-4b73-9fc0-4e15c34c82e3"/>
+      <field name="count_view" description="Number of times that file is viewed." type="integer" size="10" default="0" required="true" uuid="a7f3ee63-de60-4c84-8e86-ae49ef5c65cc"/>
+      <field name="date_added" description="Date when the file is added to award." type="datetime" required="true" uuid="0944d6db-93f5-4d1e-b879-0cf791174548"/>
+      <index name="idx_u_files_of_award" unique="true">
+        <index-field name="file"/>
+        <index-field name="award"/>
+      </index>
+      <orm-attributes>
+        <attribute name="options">
+          <attribute name="charset">utf8</attribute>
+          <attribute name="collate">utf8_turkish_ci</attribute>
+          <attribute name="engine">innodb</attribute>
+        </attribute>
+        <attribute name="table">files_of_award</attribute>
+        <attribute name="export-file-name">FilesOfAward.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="FilesOfAward" to="Language" caption="idx_f_files_of_award_language" inverse-alias="language" uuid="4f6a6730-deaa-43ce-927f-5eb830491427">
+      <association-field from="language" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <association from="FilesOfAward" to="Award" caption="idx_f_files_of_award_award" owner-alias="files" inverse-alias="award" uuid="8b15c1a0-9c42-49a5-b9d1-ba5a19565a06">
+      <association-field from="award" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <association from="FilesOfAward" to="File" caption="idx_files_of_award_file" inverse-alias="file" uuid="89f4da25-5f2f-4cb8-8dab-ac47fdc78d75">
+      <association-field from="file" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="Award" description="Stores a list of award definitions.&#10;&#10;Requires: FileManagementBundle, MultiLanguageSupportBundle, [SiteManagementBundlle]" uuid="511f9859-2cd0-4369-ae63-6580f94eca48">
+      <field name="id" description="System given id." type="integer" size="10" required="true" unique="true" primary="true" auto-increment="true" uuid="64e50112-12e0-45ce-b3be-0bf852b9b9ce"/>
+      <field name="date_published" description="Date when the award is published." type="datetime" required="true" uuid="538c6cf2-a884-474a-9f12-9620dae53612"/>
+      <field name="status" description="p:published;u:unpublished" type="string" size="1" default="p" required="true" uuid="ddd06dff-6091-447b-9535-1c261de5bd19"/>
+      <field name="url" description="URL of award if exists." type="time" uuid="6399d29d-87a7-407c-be2b-1893e81e84b7"/>
+      <field name="sort_order" description="Custom sort order." type="integer" size="10" default="1" required="true" uuid="0d426da6-5197-4872-82d8-0b5f0b796396"/>
+      <field name="site" description="Site that award belongs to." type="integer" size="10" uuid="c7f91d7c-8e6d-466b-bc74-b8c2fd1820e8"/>
+      <index name="idx_u_award_id" unique="true">
+        <index-field name="id"/>
+      </index>
+      <index name="idx_n_award_date_published">
+        <index-field name="date_published"/>
+      </index>
+      <orm-attributes>
+        <attribute name="options">
+          <attribute name="charset">utf8</attribute>
+          <attribute name="collate">utf8_turkish_ci</attribute>
+          <attribute name="engine">innodb</attribute>
+        </attribute>
+        <attribute name="export-file-name">Award.php</attribute>
+        <attribute name="table">award</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Award" to="Site" caption="idx_f_award_site" inverse-alias="site" uuid="755c2ddc-7629-4ed9-beb0-a477f342cfe0">
+      <association-field from="site" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <comment caption="AwardManagementBundle Pricing" description="award:  165 TL&#10;award_localization: 170 TL&#10;files_of_award: 195 TL&#10;&#10;toplam: 530 TL" uuid="2ff79459-2616-4538-ac87-b103bee9506d"/>
+    <orm-attributes>
+      <attribute name="namespace">BiberLtd\Core\Bundles\AwardManagementBundle\Entity</attribute>
+      <attribute name="filename-format">entity-name-only</attribute>
+      <attribute name="file-suffix">without-suffix</attribute>
+    </orm-attributes>
+  </module>
+  <visual-data>
+    <entity uuid="0fd4b655-daa6-4c02-801a-19afbc0c36d0" bg-color="4294967295" hdr-color="4292006610" position-x="157" position-y="197" size-x="0" size-x2="118" size-y="0" size-y2="101"/>
+    <comment uuid="2ff79459-2616-4538-ac87-b103bee9506d" bg-color="4294955204" position-x="7" position-y="13" size-x="0" size-x2="160" size-y="0" size-y2="80" txt-color="4278190080"/>
+    <entity uuid="321c63c3-128c-484b-8e7f-026034d69263" bg-color="4294967295" hdr-color="4292006610" position-x="407" position-y="202" size-x="0" size-x2="125" size-y="0" size-y2="101"/>
+    <entity uuid="511f9859-2cd0-4369-ae63-6580f94eca48" bg-color="4294967295" hdr-color="4292006610" position-x="207" position-y="47" size-x="0" size-x2="132" size-y="0" size-y2="101"/>
+    <module uuid="f4bc4dff-7837-45e0-984a-55968b23f809" bg-color="4292458987" size-x="-7" size-x2="657" size-y="3" size-y2="408"/>
+  </visual-data>
+</skipper>
