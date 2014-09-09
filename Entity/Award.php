@@ -1,7 +1,7 @@
 <?php
 /**
  * @name        Award
- * @package		BiberLtd\Core\AwardManagementBundle
+ * @package		BiberLtd\Bundle\CoreBundle\AwardManagementBundle
  *
  * @author		Murat Ünal
  *
@@ -14,9 +14,9 @@
  * @description Model / Entity class.
  *
  */
-namespace BiberLtd\Core\Bundles\AwardManagementBundle\Entity;
+namespace BiberLtd\Bundle\AwardManagementBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
-use BiberLtd\Core\CoreLocalizableEntity;
+use BiberLtd\Bundle\CoreBundle\CoreLocalizableEntity;
 
 /** 
  * @ORM\Entity
@@ -58,19 +58,19 @@ class Award extends CoreLocalizableEntity
 
     /** 
      * @ORM\OneToMany(
-     *     targetEntity="BiberLtd\Core\Bundles\AwardManagementBundle\Entity\AwardLocalization",
+     *     targetEntity="BiberLtd\Bundle\AwardManagementBundle\Entity\AwardLocalization",
      *     mappedBy="award"
      * )
      */
     protected $localizations;
 
     /** 
-     * @ORM\OneToMany(targetEntity="BiberLtd\Core\Bundles\AwardManagementBundle\Entity\FilesOfAward", mappedBy="award")
+     * @ORM\OneToMany(targetEntity="BiberLtd\Bundle\AwardManagementBundle\Entity\FilesOfAward", mappedBy="award")
      */
     private $files;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\SiteManagementBundle\Entity\Site")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\SiteManagementBundle\Entity\Site")
      * @ORM\JoinColumn(name="site", referencedColumnName="id", onDelete="CASCADE")
      */
     private $site;

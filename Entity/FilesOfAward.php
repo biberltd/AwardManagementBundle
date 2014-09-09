@@ -1,7 +1,7 @@
 <?php
 /**
  * @name        FilesOfAward
- * @package		BiberLtd\Core\AwardManagementBundle
+ * @package		BiberLtd\Bundle\CoreBundle\AwardManagementBundle
  *
  * @author		Murat Ünal
  *
@@ -14,9 +14,9 @@
  * @description Model / Entity class.
  *
  */
-namespace BiberLtd\Core\Bundles\AwardManagementBundle\Entity;
+namespace BiberLtd\Bundle\AwardManagementBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
-use BiberLtd\Core\CoreEntity;
+use BiberLtd\Bundle\CoreBundle\CoreEntity;
 
 /** 
  * @ORM\Entity
@@ -45,21 +45,21 @@ class FilesOfAward extends CoreEntity
 
     /** 
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity\Language")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language")
      * @ORM\JoinColumn(name="language", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $language;
 
     /** 
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\AwardManagementBundle\Entity\Award", inversedBy="files")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\AwardManagementBundle\Entity\Award", inversedBy="files")
      * @ORM\JoinColumn(name="award", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $award;
 
     /** 
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\FileManagementBundle\Entity\File")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\FileManagementBundle\Entity\File")
      * @ORM\JoinColumn(name="file", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $file;

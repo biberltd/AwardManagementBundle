@@ -1,7 +1,7 @@
 <?php
 /**
  * @name        AwardLocalization
- * @package		BiberLtd\Core\AwardManagementBundle
+ * @package		BiberLtd\Bundle\CoreBundle\AwardManagementBundle
  *
  * @author		Murat Ünal
  *
@@ -14,9 +14,9 @@
  * @description Model / Entity class.
  *
  */
-namespace BiberLtd\Core\Bundles\AwardManagementBundle\Entity;
+namespace BiberLtd\Bundle\AwardManagementBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
-use BiberLtd\Core\CoreEntity;
+use BiberLtd\Bundle\CoreBundle\CoreEntity;
 
 /** 
  * @ORM\Entity
@@ -51,7 +51,7 @@ class AwardLocalization extends CoreEntity
     /** 
      * @ORM\Id
      * @ORM\ManyToOne(
-     *     targetEntity="BiberLtd\Core\Bundles\AwardManagementBundle\Entity\Award",
+     *     targetEntity="BiberLtd\Bundle\AwardManagementBundle\Entity\Award",
      *     inversedBy="localizations"
      * )
      * @ORM\JoinColumn(name="award", referencedColumnName="id", nullable=false, onDelete="CASCADE")
@@ -60,7 +60,7 @@ class AwardLocalization extends CoreEntity
 
     /** 
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity\Language")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language")
      * @ORM\JoinColumn(name="language", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $language;

@@ -104,7 +104,7 @@
     </association>
     <comment caption="AwardManagementBundle Pricing" description="award:  165 TL&#10;award_localization: 170 TL&#10;files_of_award: 195 TL&#10;&#10;toplam: 530 TL" uuid="2ff79459-2616-4538-ac87-b103bee9506d"/>
     <orm-attributes>
-      <attribute name="namespace">BiberLtd\Core\Bundles\AwardManagementBundle\Entity</attribute>
+      <attribute name="namespace">BiberLtd\Bundle\AwardManagementBundle\Entity</attribute>
       <attribute name="filename-format">entity-name-only</attribute>
       <attribute name="file-suffix">without-suffix</attribute>
     </orm-attributes>
